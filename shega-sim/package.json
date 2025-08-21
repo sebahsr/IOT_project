@@ -1,0 +1,18 @@
+{
+  "name": "shega-sim",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev":"node simulator.js --broker mqtt://localhost:1883 --homes 5 --interval 60000 && node simulator.js --fast --homes 3",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "mqtt": "^5.14.0",
+    "uuid": "^11.1.0",
+    "yargs": "^18.0.0"
+  }
+}

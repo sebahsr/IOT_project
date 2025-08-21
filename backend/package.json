@@ -1,0 +1,45 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js",
+    "seed": "node scripts/seed.js",
+    "simulate:air": "node scripts/sendAir.js",
+    "simulate:stove": "node scripts/sendStove.js",
+    "watch:control": "node scripts/watchControl.js",
+    "watch:alerts": "node scripts/watchAlerts.js",
+    "ws:test": "node scripts/wsClient.js",
+
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prettier": "prettier --write .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.0.1",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.1.0",
+    "http-status": "^2.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.17.1",
+    "morgan": "^1.10.1",
+    "mqtt": "^5.14.0",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

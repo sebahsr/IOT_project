@@ -1,0 +1,16 @@
+[
+  {
+    "deviceId": "stovenode_001",
+    "timestamp": 1754307771314,
+    "temperature": 145.2,
+    "safetyLevel": "warning",
+    "buzzerActive": false,
+    "fanSpeed": 128,
+    "gasValvePosition": 90,
+    "emergencyMode": false,
+    "wifiConnected": true,
+    "mqttConnected": true,
+    "rssi": -52,
+    "serverTimestamp": "2025-08-04 13:42:51"
+  }
+]
