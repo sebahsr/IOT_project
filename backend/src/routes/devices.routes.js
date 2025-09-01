@@ -7,7 +7,7 @@ const validate = require('../middleware/validate');
 
 const ctrl = require('../controllers/deviceController');
 const cmd  = require('../controllers/commandController');
-
+const hos = require('../controllers/houseControler')
 // List devices visible to the user
 router.get('/', auth, ctrl.list);
 
@@ -26,4 +26,7 @@ router.post(
   cmd.send
 );
 
+router.post('/getUserHouseByID', hos.getUserHouseByID);
+
 module.exports = router;
+

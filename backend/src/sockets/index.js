@@ -1,68 +1,59 @@
-const jwt = require('jsonwebtoken');
+const { Server } = require('socket.io');
+const live = require('../services/liveStore');
 
 let io;
 
-function init(server) {
-  const { Server } = require('socket.io');
-  const origins = (process.env.CORS_ORIGINS || '').split(',').filter(Boolean);
-  io = new Server(server, {
-    cors: {
-      origin: origins.length ? origins : '*',
-      credentials: true
+function start(httpServer) {
+  io = new Server(httpServer, {
+    cors: { origin: process.env.CORS_ORIGIN?.split(',') || true, credentials: true },
+  });
+console.log('Socket.IO server started');
+  const nsp = io.of('/live');
+ console.log('Socket.IO /live namespace ready');
+ 
+  nsp.on('connection', (socket) => {
+    console.log('Socket connected:', socket.id);
+    // auth can come from handshake.auth or query — keep it simple for now
+    const auth = { ...(socket.handshake.auth || {}), ...(socket.handshake.query || {}) };
+    const role = (auth.role || 'user').toLowerCase();
+    const homeId = auth.homeId;
+
+    if (role === 'admin') socket.join('admins');
+    if (role==='user' ) {
+
+      socket.join(`home:${homeId}`);
+      socket.emit('home:snapshot', live.getHomeSnapshot(homeId));
     }
-  });
-
-  // JWT auth during handshake
-  io.use((socket, next) => {
-    try {
-      const hdr = socket.handshake.headers?.authorization || '';
-      const viaAuth = socket.handshake.auth?.token;
-      const token = viaAuth || (hdr.startsWith('Bearer ') ? hdr.split(' ')[1] : null);
-      if (!token) return next(new Error('Missing token'));
-      const payload = jwt.verify(token, process.env.JWT_SECRET);
-      socket.user = {
-        id: payload.sub,
-        role: payload.role,
-        homes: payload.homes || []
-      };
-      next();
-    } catch (e) {
-      next(new Error('Invalid token'));
+    if (homeId) {
+      socket.join(`home:${homeId}`);
+      // Send initial snapshot for the joined home
+      socket.emit('home:snapshot', live.getHomeSnapshot(homeId));
     }
+
+    socket.on('join:home', (hid) => {
+      if (!hid) return;
+      socket.join(`home:${hid}`);
+      socket.emit('home:snapshot', live.getHomeSnapshot(hid));
+    });
   });
-
-  io.on('connection', (socket) => {
-    const { role, homes } = socket.user;
-    if (role === 'admin') socket.join('admin');
-    homes.forEach(h => socket.join(`home:${h}`));
-    socket.emit('ready', { ok: true, rooms: Array.from(socket.rooms) });
-  });
-
-  console.log('✅ Socket.IO ready');
-  return io;
-}
-
-function getIO() {
-  if (!io) throw new Error('Socket.IO not initialized');
-  return io;
 }
 
 function emitTelemetry(doc) {
   if (!io) return;
-  io.to(`home:${doc.homeId}`).emit('telemetry', doc);
-  io.to('admin').emit('telemetry', doc);
+  const { device, statusCounts } = require('../services/liveStore').setTelemetry(doc);
+
+  const nsp = io.of('/live');
+  const room = `home:${doc.homeId}`;
+  nsp.to(room).emit('telemetry', { doc, device, statusCounts });
+  nsp.to('admins').emit('telemetry', { doc, device, statusCounts, homeId: doc.homeId });
 }
 
-function emitAlert(alertObj) {
+function emitAlert(payload) {
   if (!io) return;
-  io.to(`home:${alertObj.homeId}`).emit('alert', alertObj);
-  io.to('admin').emit('alert', alertObj);
+  const nsp = io.of('/live');
+  const room = `home:${payload.homeId}`;
+  nsp.to(room).emit('alert', payload);
+  nsp.to('admins').emit('alert', { ...payload, scope: 'admin' });
 }
 
-function emitCommand(cmdObj) {
-  if (!io) return;
-  io.to(`home:${cmdObj.homeId}`).emit('command', cmdObj);
-  io.to('admin').emit('command', cmdObj);
-}
-
-module.exports = { init, getIO, emitTelemetry, emitAlert, emitCommand };
+module.exports = { start, emitTelemetry, emitAlert };

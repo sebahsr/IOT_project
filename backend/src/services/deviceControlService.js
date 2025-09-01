@@ -1,30 +1,88 @@
 // services/deviceControlService.js
-// Publishes control commands to MQTT topics based on device type.
-// Assumes you already have an MQTT module that exposes `publish(topic, payload)`.
-const Device = require('../models/Device');
-const User = require('../models/User');
-let mqttPublisher;
+// Publishes control commands to MQTT topics that the SIM listens to:
+// -> shega/<HOME_ID>/control with { target, actions }.
+//
+// Mapping rules:
+// - STOVENODE:
+//    { fan: true|'on'|'off' }   -> actions.fan 'on'|'off'
+//    { valve: 'open'|'close' }  -> actions.valve 'open'|'close'   (device enforces safe-open guards)
+//    { cutoff: true }           -> actions.fan='on', actions.valve='close'
+//    { durationSec: number }    -> pass-through (e.g., timed ventilation)
+// - AIRNODE:
+//    { buzzer: boolean }        -> actions.alarm 'on'|'off'
+//    { alarm: 'on'|'off'|'auto' } -> pass-through
+//
+// NOTE: We publish per home: shega/<homeId>/control
+//       The device will reject unsafe commands and emit CONTROL_DENIED events.
 
-// Lazy require to avoid circular deps if needed:
+const Device = require('../models/Device');
+const User = require('../models/User'); // used elsewhere in this file
+const crypto = require('crypto');
+
+// Lazy-load MQTT publisher from our mqttService (exports publish())
+let mqttSvc;
 function getMqtt() {
-  if (mqttPublisher) return mqttPublisher;
+  if (mqttSvc) return mqttSvc;
   try {
-    // Example: your mqtt service exports publish()
-    mqttPublisher = require('../mqtt'); // adjust to your actual path/export
+    mqttSvc = require('./mqttService'); // <-- correct local path
   } catch {
-    mqttPublisher = null;
+    mqttSvc = null;
   }
-  return mqttPublisher;
+  return mqttSvc;
+}
+
+function toOnOff(v) {
+  if (typeof v === 'string') return v.toLowerCase() === 'on' ? 'on' : 'off';
+  return v ? 'on' : 'off';
+}
+
+function buildActionsForStove(command = {}, lastCOppm /* optional if you add server guards */) {
+  const actions = {};
+  // cutoff -> immediate safe state
+  if (command.cutoff) {
+    actions.fan = 'on';
+    actions.valve = 'close';
+  }
+  if (command.fan !== undefined) {
+    actions.fan = toOnOff(command.fan);
+  }
+  if (command.valve !== undefined) {
+    // Allow manual open/close; device will enforce safety (no auto-open device-side)
+    const v = String(command.valve).toLowerCase();
+    actions.valve = v === 'open' ? 'open' : 'close';
+  }
+  if (Number.isFinite(command.durationSec)) {
+    actions.durationSec = Number(command.durationSec);
+  }
+  return actions;
+}
+
+function buildActionsForAir(command = {}) {
+  const actions = {};
+  if (command.alarm) {
+    const v = String(command.alarm).toLowerCase(); // 'on'|'off'|'auto'
+    if (v === 'on' || v === 'off' || v === 'auto') actions.alarm = v;
+  }
+  if (command.buzzer !== undefined) {
+    actions.alarm = toOnOff(command.buzzer); // map boolean buzzer -> alarm on/off
+  }
+  // pass through optional pulse fields if you later support them on the device
+  if (Number.isFinite(command.ms)) actions.ms = Number(command.ms);
+  return actions;
 }
 
 /**
- * Send a control command to a device.
- * For AIRNODE: e.g., set fan, sound buzzer, etc.
- * For STOVENODE: e.g., fan on/off, buzzer on/off, safety cutoff.
- * The topic convention here: "shega/<lowerType>/control".
+ * Send a control command to a device by its deviceId.
+ * Publishes to: shega/<homeId>/control
+ * Payload:
+ * {
+ *   ts, homeId, deviceId, target: 'AIRNODE'|'STOVENODE',
+ *   actions: {...}, requestId, issuedBy?: {id,email}
+ * }
  */
-async function sendDeviceControl(deviceId, command) {
+async function sendDeviceControl(deviceId, command = {}, issuedBy /* optional: { _id, email } */) {
   const device = await Device.findOne({ deviceId }).lean();
+  console.log('Found device for control:', deviceId, device ? `(home ${device.homeId})` : '(not found)');
   if (!device) {
     const err = new Error('Device not found');
     err.status = 404;
@@ -38,28 +96,51 @@ async function sendDeviceControl(deviceId, command) {
     throw err;
   }
 
-  const lowerType = device.type.toLowerCase(); // 'airnode' | 'stovenode'
-  const topic = `shega/${lowerType}/control`;
+  const homeId = device.homeId;
+  const target = device.type === 'AIRNODE' ? 'AIRNODE' : 'STOVENODE';
+   console.log(`Preparing control for device ${deviceId} (type ${target}) in home ${homeId}`);
+  // Build actions per device type
+  const actions =
+    target === 'STOVENODE' ? buildActionsForStove(command)
+    : buildActionsForAir(command);
+   console.log('Mapped actions:',  target === 'STOVENODE',command );
+  // If no recognized actions, fail fast
+  if (!actions || Object.keys(actions).length === 0) {
+    const err = new Error('No valid actions for target device');
+    err.status = 400;
+    throw err;
+  }
 
   const payload = {
+    ts: new Date().toISOString(),
+    requestId: crypto.randomUUID(),
+    homeId,
     deviceId: device.deviceId,
-    homeId: device.homeId,
-    command, // e.g. { fan: "on" } or { buzzer: true }
-    ts: new Date().toISOString()
+    target,           // 'AIRNODE' | 'STOVENODE'
+    actions,          // mapped actions
   };
 
-  // Fire-and-forget
-  await mqtt.publish(topic, JSON.stringify(payload));
+  if (issuedBy && (issuedBy._id || issuedBy.id || issuedBy.email)) {
+    payload.issuedBy = {
+      id: String(issuedBy._id || issuedBy.id || ''),
+      email: issuedBy.email || undefined,
+    };
+  }
+
+  const topic = `shega/${homeId}/control`;
+
+  // Minimal, focused log (only on command publish)
+  console.log(
+    `[MQTT→control] ${homeId} ${target} ${JSON.stringify(actions)}${payload.issuedBy ? ` by ${payload.issuedBy.email || payload.issuedBy.id}` : ''}`
+  );
+
+  await mqtt.publish(topic, payload); // mqttService.publish handles JSON/string
 
   return { ok: true, topic, payload };
 }
-// services/adminService.js
 
+/* ---------------- Existing admin helpers stay the same ---------------- */
 
-/**
- * Get a paginated overview of households (grouped by homeId) with device counts and owners.
- * Supports search (by homeId), filter by device status/type, and pagination.
- */
 async function getHomesOverview({ search = '', status, type, page = 1, limit = 10 }) {
   const match = {};
   if (search) match.homeId = { $regex: new RegExp(search, 'i') };
@@ -76,13 +157,10 @@ async function getHomesOverview({ search = '', status, type, page = 1, limit = 1
         byType: {
           $push: { type: '$type', status: '$status', deviceId: '$deviceId', name: '$name', owner: '$owner' }
         },
-        statusCounts: {
-          $push: '$status'
-        },
+        statusCounts: { $push: '$status' },
         lastSeenAt: { $max: '$lastSeenAt' }
       }
     },
-    // Expand status counts into an object
     {
       $addFields: {
         statusCountObj: {
@@ -107,14 +185,10 @@ async function getHomesOverview({ search = '', status, type, page = 1, limit = 1
   ];
 
   const skip = (Number(page) - 1) * Number(limit);
-
-  // Get total distinct homes count for pagination
   const distinctHomes = await Device.distinct('homeId', match);
   const totalHomes = distinctHomes.length;
-
   const homes = await Device.aggregate(pipeline).skip(skip).limit(Number(limit));
 
-  // Attach owners per home (users whose "homes" contains this homeId)
   const homeIds = homes.map(h => h.homeId);
   const users = await User.find({ homes: { $in: homeIds } }, { password: 0 }).lean();
 
@@ -132,10 +206,7 @@ async function getHomesOverview({ search = '', status, type, page = 1, limit = 1
     statusCounts: h.statusCountObj || {},
     lastSeenAt: h.lastSeenAt || null,
     devices: h.byType.map(d => ({
-      deviceId: d.deviceId,
-      name: d.name,
-      type: d.type,
-      status: d.status
+      deviceId: d.deviceId, name: d.name, type: d.type, status: d.status
     })),
     owners: ownersByHome[h.homeId] || []
   }));
@@ -149,12 +220,10 @@ async function getHomesOverview({ search = '', status, type, page = 1, limit = 1
   };
 }
 
-/** Get full detail of a specific household (devices + owners). */
 async function getHomeDetail(homeId) {
   const devices = await Device.find({ homeId }).lean();
   const owners = await User.find({ homes: homeId }, { password: 0 }).lean();
 
-  // quick counts
   const statusCounts = devices.reduce((acc, d) => {
     acc[d.status] = (acc[d.status] || 0) + 1;
     return acc;
@@ -187,7 +256,6 @@ async function getHomeDetail(homeId) {
   };
 }
 
-/** List devices for a household with optional filters. */
 async function getDevicesByHome(homeId, { status, type }) {
   const q = { homeId };
   if (status) q.status = status;
@@ -196,7 +264,6 @@ async function getDevicesByHome(homeId, { status, type }) {
   return devices;
 }
 
-/** Device detail with populated owner. */
 async function getDeviceDetail(deviceId) {
   const device = await Device.findOne({ deviceId }).populate('owner', '-password').lean();
   if (!device) return null;
@@ -208,5 +275,5 @@ module.exports = {
   getHomeDetail,
   getDevicesByHome,
   getDeviceDetail,
-  sendDeviceControl
+  sendDeviceControl,
 };

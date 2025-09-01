@@ -1,0 +1,603 @@
+[
+  {
+    "id": "kb1",
+    "lang": "en",
+    "title": "Why CO₂ can be high indoors",
+    "text": "High indoor CO₂ usually comes from people breathing in closed rooms, poor ventilation, sealed windows, or gas appliances. Increase fresh air and reduce sources."
+  },
+  {
+    "id": "kb2",
+    "lang": "en",
+    "title": "Immediate steps for CO alarm",
+    "text": "Take CO alarms seriously. Ventilate immediately by opening doors and windows, move to fresh air, turn off sources, and call emergency services if anyone has symptoms."
+  },
+  {
+    "id": "kb3",
+    "lang": "en",
+    "title": "What PM2.5 means",
+    "text": "PM2.5 are fine particles ≤2.5 micrometers. They penetrate deep into lungs. Common sources: cooking smoke, candles, dust. Ventilation and filtration help reduce them."
+  },
+  {
+    "id": "kb4",
+    "lang": "en",
+    "title": "Kitchen ventilation tips",
+    "text": "Use the range hood while cooking and afterwards. Open a window for cross-ventilation. Clean filters regularly. Avoid blocking air inlets."
+  },
+  {
+    "id": "kb5",
+    "lang": "en",
+    "title": "Silencing the alarm",
+    "text": "In this project, silence the AirNode buzzer by pressing its button for ~3 seconds or sending 'alarm:off' via dashboard. Always fix the source, not just the sound."
+  },
+  {
+    "id": "kb6",
+    "lang": "en",
+    "title": "When to seek help",
+    "text": "If air quality remains poor despite ventilation, or anyone feels unwell, stop sources, move to fresh air, and contact a technician or emergency services."
+  },
+  {
+    "id": "kb7",
+    "lang": "en",
+    "title": "Safe CO₂ levels",
+    "text": "Outdoor CO₂ ~400 ppm. Indoors, >1000 ppm means poor ventilation, >2000 ppm may cause drowsiness. Always ventilate when above 1000 ppm."
+  },
+  {
+    "id": "kb8",
+    "lang": "en",
+    "title": "Health effects of CO exposure",
+    "text": "CO binds to hemoglobin, reducing oxygen delivery. Symptoms: headache, dizziness, nausea. Severe exposure: unconsciousness or death. Ventilate and evacuate immediately."
+  },
+  {
+    "id": "kb9",
+    "lang": "en",
+    "title": "Safe PM2.5 thresholds",
+    "text": "WHO 24-hour guideline ≤15 µg/m³. Above 35 µg/m³ is unhealthy, especially for sensitive groups. Reduce sources and improve ventilation."
+  },
+  {
+    "id": "kb10",
+    "lang": "en",
+    "title": "StoveNode fan control",
+    "text": "Fan removes smoke and heat. It turns on automatically at high stove temperatures, but users may keep it on manually for extra ventilation."
+  },
+  {
+    "id": "kb11",
+    "lang": "en",
+    "title": "Regular maintenance",
+    "text": "Check sensor calibration every 6–12 months. Replace filters regularly. Keep stove area clean and ensure ducts are not blocked."
+  },
+  {
+    "id": "kb12",
+    "lang": "en",
+    "title": "Alarm sound meaning",
+    "text": "Continuous alarm = danger. Short beep = low battery or fault. Always investigate the cause."
+  },
+  {
+    "id": "kb13",
+    "lang": "en",
+    "title": "Safe stove temperature",
+    "text": "Normal cooking ≤200°C. If stove surface >250°C unsupervised, system triggers alarm and fan."
+  },
+  {
+    "id": "kb14",
+    "lang": "en",
+    "title": "Why humidity matters",
+    "text": "Comfortable range: 40–60%. High humidity causes mold; low humidity causes dryness."
+  },
+  {
+    "id": "kb15",
+    "lang": "en",
+    "title": "Symptoms of high CO₂",
+    "text": "Mild: drowsiness, poor concentration. Severe: headaches, nausea. Improve ventilation immediately."
+  },
+  {
+    "id": "kb16",
+    "lang": "en",
+    "title": "Symptoms of high PM2.5",
+    "text": "Irritation of eyes, throat, coughing, asthma flare-ups. Reduce indoor sources and ventilate."
+  },
+  {
+    "id": "kb17",
+    "lang": "en",
+    "title": "Symptoms of high CO",
+    "text": "Headache, dizziness, confusion. Severe: fainting. Always treat as emergency."
+  },
+  {
+    "id": "kb18",
+    "lang": "en",
+    "title": "Dashboard usage",
+    "text": "Users can see real-time sensor data, historical trends, and control actuators via the dashboard."
+  },
+  {
+    "id": "kb19",
+    "lang": "en",
+    "title": "Buzzer purpose",
+    "text": "The buzzer provides immediate audible alerts when dangerous thresholds are exceeded."
+  },
+  {
+    "id": "kb20",
+    "lang": "en",
+    "title": "Fan purpose",
+    "text": "The fan improves air circulation and helps remove harmful gases and smoke."
+  },
+  {
+    "id": "kb21",
+    "lang": "en",
+    "title": "CO₂ sensor info",
+    "text": "The AirNode CO₂ sensor provides calibrated readings in ppm for indoor air quality monitoring."
+  },
+  {
+    "id": "kb22",
+    "lang": "en",
+    "title": "CO sensor info",
+    "text": "The CO sensor detects carbon monoxide levels in ppm to prevent poisoning."
+  },
+  {
+    "id": "kb23",
+    "lang": "en",
+    "title": "PM sensor info",
+    "text": "The particulate matter sensor measures PM1.0, PM2.5, PM10 levels to detect smoke and dust."
+  },
+  {
+    "id": "kb24",
+    "lang": "en",
+    "title": "Temperature sensor info",
+    "text": "The DHT22 measures temperature and humidity for comfort and safety insights."
+  },
+  {
+    "id": "kb25",
+    "lang": "en",
+    "title": "When to open windows",
+    "text": "Open windows when CO₂ >1000 ppm, PM2.5 is high, or stove is producing smoke."
+  },
+  {
+    "id": "kb26",
+    "lang": "en",
+    "title": "Why ventilation is key",
+    "text": "Ventilation dilutes pollutants, lowers CO₂ and CO, and brings fresh air indoors."
+  },
+  {
+    "id": "kb27",
+    "lang": "en",
+    "title": "Why filtration matters",
+    "text": "Air filters remove particles and allergens. Clean or replace them regularly."
+  },
+  {
+    "id": "kb28",
+    "lang": "en",
+    "title": "Power failure behavior",
+    "text": "If power fails, devices reconnect automatically when restored. Alarms resume normal operation."
+  },
+  {
+    "id": "kb29",
+    "lang": "en",
+    "title": "Data storage",
+    "text": "All sensor readings are stored in the database for historical analysis and safety audits."
+  },
+  {
+    "id": "kb30",
+    "lang": "en",
+    "title": "CSV export",
+    "text": "Users can export historical data in CSV format from the dashboard."
+  },
+  {
+    "id": "kb31",
+    "lang": "en",
+    "title": "AI Assistant role",
+    "text": "SHEGA Assistant explains air quality, stove safety, and provides actionable advice."
+  },
+  {
+    "id": "kb32",
+    "lang": "en",
+    "title": "Low battery warning",
+    "text": "Short beeps indicate low battery in devices. Replace or recharge batteries promptly."
+  },
+  {
+    "id": "kb33",
+    "lang": "en",
+    "title": "Smoke detection",
+    "text": "PM sensor detects smoke particles. Alarms activate if levels rise dangerously."
+  },
+  {
+    "id": "kb34",
+    "lang": "en",
+    "title": "Fire prevention",
+    "text": "Never leave cooking unattended. Keep flammable items away from stove."
+  },
+  {
+    "id": "kb35",
+    "lang": "en",
+    "title": "Children safety",
+    "text": "Teach children not to tamper with sensors or alarms. Ensure stove area is safe."
+  },
+  {
+    "id": "kb36",
+    "lang": "en",
+    "title": "Elderly safety",
+    "text": "Ensure alarms are loud enough. Provide visual indicators for hearing-impaired users."
+  },
+  {
+    "id": "kb37",
+    "lang": "en",
+    "title": "Pet safety",
+    "text": "Pets are sensitive to smoke and CO. Keep indoor air clean and safe."
+  },
+  {
+    "id": "kb38",
+    "lang": "en",
+    "title": "Smart thermostat benefit",
+    "text": "Smart thermostats can adjust temperature and airflow based on occupancy."
+  },
+  {
+    "id": "kb39",
+    "lang": "en",
+    "title": "Why avoid candles",
+    "text": "Candles release PM2.5 and CO₂. Use alternatives like LED lights."
+  },
+  {
+    "id": "kb40",
+    "lang": "en",
+    "title": "Incense smoke",
+    "text": "Burning incense produces fine particles and gases. Ventilate well if used."
+  },
+  {
+    "id": "kb41",
+    "lang": "en",
+    "title": "Cooking smoke",
+    "text": "Frying or grilling produces particles and gases. Always use ventilation."
+  },
+  {
+    "id": "kb42",
+    "lang": "en",
+    "title": "Dust buildup",
+    "text": "Dust increases PM levels. Regular cleaning reduces indoor pollutants."
+  },
+  {
+    "id": "kb43",
+    "lang": "en",
+    "title": "Car exhaust risk",
+    "text": "Running cars in garages produces CO. Never idle a car indoors."
+  },
+  {
+    "id": "kb44",
+    "lang": "en",
+    "title": "Sensor faults",
+    "text": "Unusual readings may mean sensor fault. Check connections and recalibrate."
+  },
+  {
+    "id": "kb45",
+    "lang": "en",
+    "title": "Calibration",
+    "text": "Calibrate sensors outdoors in clean air for accuracy."
+  },
+  {
+    "id": "kb46",
+    "lang": "en",
+    "title": "Emergency contacts",
+    "text": "Always have emergency numbers accessible in case of CO or fire incidents."
+  },
+  {
+    "id": "kb47",
+    "lang": "en",
+    "title": "Why sleep quality matters",
+    "text": "High CO₂ at night can cause restless sleep. Ventilate bedrooms."
+  },
+  {
+    "id": "kb48",
+    "lang": "en",
+    "title": "Humidity and health",
+    "text": "Too dry air irritates skin and throat. Too humid causes mold. Balance is key."
+  },
+  {
+    "id": "kb49",
+    "lang": "en",
+    "title": "Why log history",
+    "text": "Historical data helps track air trends and improve safety practices."
+  },
+  {
+    "id": "kb50",
+    "lang": "en",
+    "title": "Role of SHEGA",
+    "text": "SHEGA Assistant helps you understand data, alerts you to dangers, and guides safe actions."
+  },
+
+  {
+    "id": "kb51",
+    "lang": "am",
+    "title": "ለምን የ CO₂ መጠን ይጨምራል?",
+    "text": "በተዘጉ ክፍሎች ውስጥ መተንፈስ፣ መናፈሻ እጥረት እና ጋዝ መሳሪያ በመጠቀም የ CO₂ መጠን ይጨምራል።"
+  },
+  {
+    "id": "kb52",
+    "lang": "am",
+    "title": "የ CO አስጠንቀቂ መሳሪያ",
+    "text": "አስጠንቀቂውን በጥርጥር ይውሰዱ። መስኮቶችን ክፈቱ፣ ነፃ አየር ያስገቡ፣ ምንጮችን ይዝጉ።"
+  },
+  {
+    "id": "kb53",
+    "lang": "am",
+    "title": "PM2.5 ምንድነው?",
+    "text": "PM2.5 ከ 2.5 ማይክሮ ሜትር ያነሱ ትንንሽ ቅንጣቶች ናቸው። ምንጮች የምግብ ጭስ፣ ካንድል፣ ትቢያ።"
+  },
+  {
+    "id": "kb54",
+    "lang": "am",
+    "title": "የምድጃ መናፈሻ",
+    "text": "ምግብ ሲዘጋጅ የምድጃ እቃ ማውጫ ይጠቀሙ፣ መስኮት ይክፈቱ፣ ማጣሪያን ንጹህ ያድርጉ።"
+  },
+  {
+    "id": "kb55",
+    "lang": "am",
+    "title": "አላርም ማጥፋት",
+    "text": "በዚህ ፕሮጀክት ውስጥ አላርምን በ 3 ሰከንድ ቁልፍ በመጫን ወይም 'alarm:off' በመላክ ይዝጉ።"
+  },
+  {
+    "id": "kb56",
+    "lang": "am",
+    "title": "መናፈሻ እጥረት",
+    "text": "ከ 1000 ppm በላይ የ CO₂ መጠን መናፈሻ እጥረት ያመለክታል።"
+  },
+  {
+    "id": "kb57",
+    "lang": "am",
+    "title": "የ CO ምልክቶች",
+    "text": "ራስ ምታት፣ ማዞር፣ የማቅለሽለሽ ስሜት። ከባድ ከሆነ ማድረስ ይችላል።"
+  },
+  {
+    "id": "kb58",
+    "lang": "am",
+    "title": "PM2.5 አደጋ",
+    "text": "ከ 35 µg/m³ በላይ አየር ጥራት አያስፈልግም። መናፈሻን አድርጉ።"
+  },
+  {
+    "id": "kb59",
+    "lang": "am",
+    "title": "እንቅልፍና CO₂",
+    "text": "ከፍተኛ የ CO₂ መጠን በሌሊት እንቅልፍን ያጎዳል። መስኮት ይክፈቱ።"
+  },
+  {
+    "id": "kb60",
+    "lang": "am",
+    "title": "የትቢያ ምንጮች",
+    "text": "ትቢያ፣ ካርፔት እና ተጠርጣሪ እቃዎች የ PM ምንጮች ናቸው።"
+  },
+  {
+    "id": "kb61",
+    "lang": "am",
+    "title": "አየር ማጣሪያ",
+    "text": "ማጣሪያ በቀን ቀን ማነጽ እና መቀየር ያስፈልጋል።"
+  },
+  {
+    "id": "kb62",
+    "lang": "am",
+    "title": "ሙቀት ከፍተኛ",
+    "text": "ከ 250°C በላይ የምድጃ ሙቀት አደጋ ይመስላል።"
+  },
+  {
+    "id": "kb63",
+    "lang": "am",
+    "title": "እርጥበት",
+    "text": "40–60% የሚሆነው የእርጥበት ደረጃ ተመጣጣኝ ነው።"
+  },
+  {
+    "id": "kb64",
+    "lang": "am",
+    "title": "አላርም ድምፅ",
+    "text": "ድምፅ ቀጥታ = አደጋ። አንድ ደቂቃ በኩል የሚሰማ ድምፅ ብዙ ጊዜ ባትሪ ነው።"
+  },
+  {
+    "id": "kb65",
+    "lang": "am",
+    "title": "አላርም ተጠቃሚ",
+    "text": "አላርም ለማሳወቂያ ነው። ምንጮችን ይቁሙ።"
+  },
+  {
+    "id": "kb66",
+    "lang": "am",
+    "title": "አየር ታሪክ",
+    "text": "የአየር ታሪክ መመዝገብ የወቅቱን ጥራት ይጠቅማል።"
+  },
+  {
+    "id": "kb67",
+    "lang": "am",
+    "title": "ምግብ ጭስ",
+    "text": "በምግብ ማብሰል ጊዜ ጭስ ይፈጠራል። መናፈሻ አድርጉ።"
+  },
+  {
+    "id": "kb68",
+    "lang": "am",
+    "title": "እንስሳት እና አየር",
+    "text": "እንስሳት ከጭስ እና CO ይጎዳሉ። አየርን ንጹህ ያድርጉ።"
+  },
+  {
+    "id": "kb69",
+    "lang": "am",
+    "title": "ሕፃናት እና አየር",
+    "text": "ሕፃናት በተለይ ለ PM እና CO ይጎዳሉ።"
+  },
+  {
+    "id": "kb70",
+    "lang": "am",
+    "title": "አረጋውያን",
+    "text": "አረጋውያን አላርም ግን ማየት አለባቸው።"
+  },
+  {
+    "id": "kb71",
+    "lang": "am",
+    "title": "ትንሽ አሳማ",
+    "text": "የምድጃን ቦታ ከእንስሳት አርቀው ይያዙ።"
+  },
+  {
+    "id": "kb72",
+    "lang": "am",
+    "title": "ስሞክ አደጋ",
+    "text": "ስሞክ ከፍተኛ ሲሆን አላርም ይደርሳል።"
+  },
+  {
+    "id": "kb73",
+    "lang": "am",
+    "title": "ካንድል አደጋ",
+    "text": "ካንድል ማብራት የ PM እና CO₂ ምንጭ ነው።"
+  },
+  {
+    "id": "kb74",
+    "lang": "am",
+    "title": "ኢንሰንስ ጭስ",
+    "text": "ኢንሰንስ ጭስ ትንንሽ ቅንጣት ይፈጥራል።"
+  },
+  {
+    "id": "kb75",
+    "lang": "am",
+    "title": "የእርጥበት ጉዳይ",
+    "text": "ከፍተኛ እርጥበት እንደ እምቡጥ ይደርሳል። ዝቅተኛ እርጥበት ደረቅ አየር ይሰጣል።"
+  },
+  {
+    "id": "kb76",
+    "lang": "am",
+    "title": "በአደጋ ጊዜ ማነጽ",
+    "text": "አደጋ ሲከሰት መስኮቶችን ይክፈቱ፣ አየር ያስገቡ።"
+  },
+  {
+    "id": "kb77",
+    "lang": "am",
+    "title": "ማጣሪያ አስፈላጊነት",
+    "text": "ማጣሪያ አልጋ ትቢያን ይቀንሳል።"
+  },
+  {
+    "id": "kb78",
+    "lang": "am",
+    "title": "ምንጭ ማቆም",
+    "text": "አደጋ ሲታይ የጋዝ እቃዎችን ይዝጉ።"
+  },
+  {
+    "id": "kb79",
+    "lang": "am",
+    "title": "ሙቀት ምክንያት",
+    "text": "ከፍተኛ ሙቀት ከእሳት ጋር ይዛመዳል።"
+  },
+  {
+    "id": "kb80",
+    "lang": "am",
+    "title": "አየር እና ጤና",
+    "text": "ንጹህ አየር የጤና መሰረት ነው።"
+  },
+  {
+    "id": "kb81",
+    "lang": "am",
+    "title": "ባትሪ ምክንያት",
+    "text": "ባትሪ ዝቅተኛ ሲሆን አላርም ድምፅ ይሰማል።"
+  },
+  {
+    "id": "kb82",
+    "lang": "am",
+    "title": "አየር ታሪክ ምክንያት",
+    "text": "የታሪክ መመዝገብ አደጋን ያሳያል።"
+  },
+  {
+    "id": "kb83",
+    "lang": "am",
+    "title": "በምግብ ላይ ትኩረት",
+    "text": "ምግብን እንዳትተዉት ይጠንቀቁ።"
+  },
+  {
+    "id": "kb84",
+    "lang": "am",
+    "title": "አየር መከታተያ",
+    "text": "የምድጃ እና አየር መሳሪያዎችን በመከታተል አደጋን ይቀንሱ።"
+  },
+  {
+    "id": "kb85",
+    "lang": "am",
+    "title": "አደጋ ማስታወቂያ",
+    "text": "አላርም ቀጥታ አደጋን ያሳያል።"
+  },
+  {
+    "id": "kb86",
+    "lang": "am",
+    "title": "እንቅልፍ ጥራት",
+    "text": "ከፍተኛ የ CO₂ በሌሊት እንቅልፍ ይወድቃል።"
+  },
+  {
+    "id": "kb87",
+    "lang": "am",
+    "title": "ጭስ ችግኝ",
+    "text": "ጭስ እንስሳትን እና ሕፃናትን ይጎዳል።"
+  },
+  {
+    "id": "kb88",
+    "lang": "am",
+    "title": "ጋዝ ችግኝ",
+    "text": "ጋዝ መሳሪያ ሲቀር አደጋ ነው።"
+  },
+  {
+    "id": "kb89",
+    "lang": "am",
+    "title": "አየር እና ምቾት",
+    "text": "ተመጣጣኝ አየር በቤት ውስጥ ምቾት ይሰጣል።"
+  },
+  {
+    "id": "kb90",
+    "lang": "am",
+    "title": "አየር እና ጤና ጉዳይ",
+    "text": "የጭስ እና PM2.5 ከፍተኛ ከሆነ አደጋ ይመጣል።"
+  },
+  {
+    "id": "kb91",
+    "lang": "am",
+    "title": "አየር ቁጥጥር",
+    "text": "ስህተት ሲታይ ሴንሰር ይምረምሩ።"
+  },
+  {
+    "id": "kb92",
+    "lang": "am",
+    "title": "ካሊብሬሽን",
+    "text": "ሴንሰርን በንጹህ አየር ውስጥ ያስተካክሉ።"
+  },
+  {
+    "id": "kb93",
+    "lang": "am",
+    "title": "አየር ስርዓት",
+    "text": "አየርን በቀጥታ መከታተል ይጠቅማል።"
+  },
+  {
+    "id": "kb94",
+    "lang": "am",
+    "title": "አየር ትንታኔ",
+    "text": "አየር ታሪክ መመዝገብ ማሻሻያ ያስገኛል።"
+  },
+  {
+    "id": "kb95",
+    "lang": "am",
+    "title": "አደጋ እርዳታ",
+    "text": "አደጋ ቢከሰት አስቸኳይ አገልግሎት ይደውሉ።"
+  },
+  {
+    "id": "kb96",
+    "lang": "am",
+    "title": "የጭስ አደጋ",
+    "text": "ከፍተኛ ጭስ እና የ PM አደጋ ነው።"
+  },
+  {
+    "id": "kb97",
+    "lang": "am",
+    "title": "አየር ማስተካከያ",
+    "text": "ስምንት ወር በኋላ ሴንሰርን ይቀይሩ።"
+  },
+  {
+    "id": "kb98",
+    "lang": "am",
+    "title": "የምድጃ አስተሳሰብ",
+    "text": "ምድጃን ከፍተኛ ሲሆን በማስታወቂያ ይዘጋል።"
+  },
+  {
+    "id": "kb99",
+    "lang": "am",
+    "title": "አላርም አስተዳደር",
+    "text": "አላርምን በደንብ ያስተዳድሩ።"
+  },
+  {
+    "id": "kb100",
+    "lang": "am",
+    "title": "SHEGA አጋዥ",
+    "text": "SHEGA አጋዥ የቤት ውስጥ አየር ጥራትን ይመርምራል፣ አደጋን ያሳያል እና ምክር ይሰጣል።"
+  }
+]

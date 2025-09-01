@@ -64,12 +64,19 @@ async function getDevice(req, res, next) {
 
 async function controlDevice(req, res, next) {
   try {
+    console.log('controlDevice called');
     handleValidation(req);
     const { deviceId } = req.params;
-    const command = req.body; // expect a JSON object describing the action
-    const result = await serv.sendDeviceControl(deviceId, command);
+    const command = req.body.actions|| {};
+
+  
+    const issuedBy = req.user ? { _id: req.user._id, email: req.user.email } : undefined;
+    console.log('Issued by:', issuedBy);
+    console.log('Control command:', command);
+    const result = await serv.sendDeviceControl(deviceId, command, issuedBy);
     res.json(result);
   } catch (e) {
+    console.error('Error controlling device:', e);
     next(e);
   }
 }

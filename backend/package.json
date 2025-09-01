@@ -5,13 +5,8 @@
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js",
-    "seed": "node scripts/seed.js",
-    "simulate:air": "node scripts/sendAir.js",
-    "simulate:stove": "node scripts/sendStove.js",
-    "watch:control": "node scripts/watchControl.js",
-    "watch:alerts": "node scripts/watchAlerts.js",
-    "ws:test": "node scripts/wsClient.js",
-
+    "mulSim": "node scripts/mul-sim.js",
+    "simfeed": "node scripts/sim-feed.js ",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
@@ -24,7 +19,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "axios": "^1.11.0",
     "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",

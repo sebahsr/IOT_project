@@ -1,0 +1,2 @@
+airnode= https://wokwi.com/projects/440486152569864193
+stove node = https://wokwi.com/projects/440487107104521217

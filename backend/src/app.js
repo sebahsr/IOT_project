@@ -16,7 +16,7 @@ const deviceRoutes = require('./routes/devices.routes');
 const telemetryRoutes = require('./routes/telemetry.routes'); 
 const dashboardRoutes = require('./routes/dashboard.routes'); 
 const adminRoutes = require('./routes/admin.routes'); 
-
+const rag = require('./routes/rag.routes')
 const { apiLimiter, authLimiter } = require('./middleware/rateLimiters');
 const errorHandler = require('./middleware/errorHandler');
 const notFound = require('./middleware/notFound');
@@ -49,7 +49,6 @@ router.post(
   ctrl.login
 );
 
-// GET /api/auth/me (protected)
 router.get('/me', auth, ctrl.me);
 
 module.exports = router;
@@ -89,7 +88,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api', apiLimiter);
 // Stricter limits just for auth
 app.use('/api/auth', authLimiter);
-
+app.use('/api/rag',rag)
 app.use(notFound);
 app.use(errorHandler);
 
